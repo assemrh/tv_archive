@@ -206,9 +206,10 @@ def ensure_desk_entry():
 		"Desktop Icon", {"label": WORKSPACE}
 	):
 		return
-	from frappe.utils.install import auto_generate_icons_and_sidebar
-
-	auto_generate_icons_and_sidebar()
+	# Call whatever Frappe itself runs after an app install; the function name changed
+	# within v16 (auto_generate_icons_and_sidebar → create_desktop_icons_for_app).
+	for method in frappe.get_hooks("after_app_install", app_name="frappe"):
+		frappe.get_attr(method)("tv_archive")
 
 
 def seed_list(doctype, fieldname, values):

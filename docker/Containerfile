@@ -12,13 +12,15 @@ ARG FRAPPE_IMAGE_PREFIX=frappe
 
 FROM ${FRAPPE_IMAGE_PREFIX}/build:${FRAPPE_BRANCH} AS builder
 
-ARG FRAPPE_BRANCH=version-16
+# Exact Frappe release, so every build is reproducible. Raise it deliberately,
+# run the tests, then rebuild.
+ARG FRAPPE_VERSION=v16.52.0
 ARG FRAPPE_PATH=https://github.com/frappe/frappe
 
 USER frappe
 
 RUN bench init \
-    --frappe-branch=${FRAPPE_BRANCH} \
+    --frappe-branch=${FRAPPE_VERSION} \
     --frappe-path=${FRAPPE_PATH} \
     --no-procfile \
     --no-backups \
@@ -35,7 +37,7 @@ RUN if command -v uv >/dev/null 2>&1; then \
     else \
       env/bin/pip install --no-cache-dir -e apps/tv_archive; \
     fi && \
-    echo "tv_archive" >> sites/apps.txt && \
+    ls -1 apps > sites/apps.txt && \
     bench build --app tv_archive && \
     echo "{}" > sites/common_site_config.json && \
     find apps -mindepth 1 -path "*/.git" | xargs rm -fr
