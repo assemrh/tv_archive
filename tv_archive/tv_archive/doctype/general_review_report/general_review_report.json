@@ -1,0 +1,411 @@
+{
+ "actions": [],
+ "autoname": "format:GRR-{YYYY}-{#####}",
+ "creation": "2026-10-18 10:00:00.000000",
+ "default_print_format": "نموذج تقرير رقابة عام",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_work",
+  "observer",
+  "work",
+  "work_title",
+  "category",
+  "column_break_work",
+  "intro_duration",
+  "outro_duration",
+  "titles_total",
+  "section_crew",
+  "story_script",
+  "preparer",
+  "column_break_crew",
+  "director",
+  "production_company",
+  "section_storage",
+  "storage_type",
+  "storage_number",
+  "episodes_count",
+  "column_break_storage",
+  "review_date",
+  "re_review_date",
+  "section_content",
+  "characters",
+  "subject",
+  "notes",
+  "section_evaluation",
+  "objective_eval",
+  "column_break_evaluation",
+  "technical_eval",
+  "section_paper",
+  "front_image",
+  "column_break_paper",
+  "back_image",
+  "section_approval",
+  "workflow_state",
+  "ready_episodes",
+  "return_reason",
+  "column_break_approval",
+  "approved_by",
+  "approved_on",
+  "section_meta",
+  "title",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_work",
+   "fieldtype": "Section Break",
+   "label": "بيانات العمل"
+  },
+  {
+   "default": "__user",
+   "fieldname": "observer",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_standard_filter": 1,
+   "label": "اسم المراقب",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "work",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "اسم العمل",
+   "options": "Archive Work",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "work.work_title",
+   "fieldname": "work_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "اسم العمل (نص)",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "work.category",
+   "fetch_if_empty": 1,
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "تصنيف العمل",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\"",
+   "options": "Archive Category"
+  },
+  {
+   "fieldname": "column_break_work",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "intro_duration",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "label": "مدة شارة البداية"
+  },
+  {
+   "fieldname": "outro_duration",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "label": "مدة شارة النهاية"
+  },
+  {
+   "description": "تُحسب تلقائياً.",
+   "fieldname": "titles_total",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "label": "المدة الإجمالية للشارتين",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_crew",
+   "fieldtype": "Section Break",
+   "label": "فريق العمل"
+  },
+  {
+   "fetch_from": "work.story_script",
+   "fetch_if_empty": 1,
+   "fieldname": "story_script",
+   "fieldtype": "Data",
+   "label": "قصة وسيناريو وحوار",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fetch_from": "work.preparer",
+   "fetch_if_empty": 1,
+   "fieldname": "preparer",
+   "fieldtype": "Data",
+   "label": "إعداد",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "column_break_crew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "work.director",
+   "fetch_if_empty": 1,
+   "fieldname": "director",
+   "fieldtype": "Data",
+   "label": "إخراج فني",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fetch_from": "work.production_company",
+   "fetch_if_empty": 1,
+   "fieldname": "production_company",
+   "fieldtype": "Data",
+   "label": "الشركة المنتجة",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "section_storage",
+   "fieldtype": "Section Break",
+   "label": "الحفظ والرقابة"
+  },
+  {
+   "fetch_from": "work.storage_type",
+   "fetch_if_empty": 1,
+   "fieldname": "storage_type",
+   "fieldtype": "Link",
+   "label": "نوع الحفظ",
+   "options": "Archive Storage Type"
+  },
+  {
+   "fetch_from": "work.storage_number",
+   "fetch_if_empty": 1,
+   "fieldname": "storage_number",
+   "fieldtype": "Data",
+   "label": "الرقم"
+  },
+  {
+   "fetch_from": "work.episodes_count",
+   "fetch_if_empty": 1,
+   "fieldname": "episodes_count",
+   "fieldtype": "Int",
+   "label": "عدد حلقات المسلسل",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\"",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_storage",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "review_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "تاريخ الرقابة",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "re_review_date",
+   "fieldtype": "Date",
+   "label": "تاريخ إعادة الرقابة"
+  },
+  {
+   "fieldname": "section_content",
+   "fieldtype": "Section Break",
+   "label": "المضمون"
+  },
+  {
+   "fetch_from": "work.default_characters",
+   "fetch_if_empty": 1,
+   "fieldname": "characters",
+   "fieldtype": "Small Text",
+   "label": "الشخصيات",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Text",
+   "label": "الموضوع",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "ملاحظات",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "section_evaluation",
+   "fieldtype": "Section Break",
+   "label": "التقييم"
+  },
+  {
+   "fieldname": "objective_eval",
+   "fieldtype": "Small Text",
+   "label": "التقييم الموضوعي",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "fieldname": "column_break_evaluation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "technical_eval",
+   "fieldtype": "Small Text",
+   "label": "التقييم الفني",
+   "mandatory_depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\""
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_paper",
+   "fieldtype": "Section Break",
+   "label": "صورة التقرير الورقي"
+  },
+  {
+   "fieldname": "front_image",
+   "fieldtype": "Attach",
+   "label": "الوجه الأمامي"
+  },
+  {
+   "fieldname": "column_break_paper",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "back_image",
+   "fieldtype": "Attach",
+   "label": "الوجه الخلفي"
+  },
+  {
+   "fieldname": "section_approval",
+   "fieldtype": "Section Break",
+   "label": "الاعتماد"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "الحالة",
+   "no_copy": 1,
+   "options": "Workflow State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ready_episodes",
+   "fieldtype": "Int",
+   "label": "الحلقات الجاهزة للعرض",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.return_reason",
+   "fieldname": "return_reason",
+   "fieldtype": "Small Text",
+   "label": "سبب الإعادة للمراقب",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_approval",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "اعتمده",
+   "no_copy": 1,
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "تاريخ الاعتماد",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_meta",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "العنوان",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "General Review Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-18 11:21:36.523780",
+ "modified_by": "Administrator",
+ "module": "TV Archive",
+ "name": "General Review Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Coordinator",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Observer",
+   "write": 1
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Director"
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "work_title,observer",
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}

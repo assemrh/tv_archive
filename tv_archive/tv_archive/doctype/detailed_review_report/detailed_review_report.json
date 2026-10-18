@@ -1,0 +1,403 @@
+{
+ "actions": [],
+ "autoname": "format:DRR-{YYYY}-{#####}",
+ "creation": "2026-10-18 10:00:00.000000",
+ "default_print_format": "نموذج تقرير رقابة تفصيلي",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_episode",
+  "observer",
+  "work",
+  "work_title",
+  "column_break_episode_1",
+  "season_no",
+  "episode_no",
+  "episode_label",
+  "column_break_episode_2",
+  "episode_duration",
+  "episode_director",
+  "review_date",
+  "section_content",
+  "characters",
+  "episode_summary",
+  "section_result",
+  "storage_type",
+  "storage_number",
+  "column_break_result",
+  "review_result",
+  "notes",
+  "section_paper",
+  "front_image",
+  "column_break_paper",
+  "back_image",
+  "section_followup",
+  "workflow_state",
+  "monitor",
+  "coordinator_instructions",
+  "column_break_followup",
+  "assigned_by",
+  "assigned_on",
+  "return_reason",
+  "section_completion",
+  "completion_note",
+  "column_break_completion",
+  "completed_by",
+  "completed_on",
+  "section_meta",
+  "title",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_episode",
+   "fieldtype": "Section Break",
+   "label": "بيانات الحلقة"
+  },
+  {
+   "default": "__user",
+   "fieldname": "observer",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_standard_filter": 1,
+   "label": "اسم المراقب",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "work",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "عنوان المادة (المسلسل / البرنامج)",
+   "options": "Archive Work",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "work.work_title",
+   "fieldname": "work_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "اسم العمل",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_episode_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "work.season_no",
+   "fetch_if_empty": 1,
+   "fieldname": "season_no",
+   "fieldtype": "Int",
+   "label": "الجزء",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "episode_no",
+   "fieldtype": "Int",
+   "label": "رقم الحلقة",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "description": "مثال: الجزء الثاني الحلقة 4. يُملأ تلقائياً ويمكن تعديله.",
+   "fieldname": "episode_label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "رقم الحلقة كما يُكتب في التقرير",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_episode_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "episode_duration",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "label": "مدة الحلقة",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "work.director",
+   "fetch_if_empty": 1,
+   "fieldname": "episode_director",
+   "fieldtype": "Data",
+   "label": "مخرج الحلقة",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "review_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "تاريخ المراقبة",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_content",
+   "fieldtype": "Section Break",
+   "label": "مضمون الحلقة"
+  },
+  {
+   "fetch_from": "work.default_characters",
+   "fetch_if_empty": 1,
+   "fieldname": "characters",
+   "fieldtype": "Small Text",
+   "label": "شخصيات المسلسل",
+   "reqd": 1
+  },
+  {
+   "fieldname": "episode_summary",
+   "fieldtype": "Text",
+   "label": "ملخص الحلقة",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_result",
+   "fieldtype": "Section Break",
+   "label": "الحفظ ونتيجة المراقبة"
+  },
+  {
+   "fetch_from": "work.storage_type",
+   "fetch_if_empty": 1,
+   "fieldname": "storage_type",
+   "fieldtype": "Link",
+   "label": "نوع حفظ المادة",
+   "options": "Archive Storage Type"
+  },
+  {
+   "fieldname": "storage_number",
+   "fieldtype": "Data",
+   "label": "رقم حفظ المادة"
+  },
+  {
+   "fieldname": "column_break_result",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "review_result",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "نتيجة المراقبة",
+   "options": "\nجاهزة للبث\nتحتاج تعديلات",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.review_result==\"تحتاج تعديلات\"",
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "الملاحظات",
+   "mandatory_depends_on": "eval:doc.review_result==\"تحتاج تعديلات\""
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_paper",
+   "fieldtype": "Section Break",
+   "label": "صورة التقرير الورقي"
+  },
+  {
+   "fieldname": "front_image",
+   "fieldtype": "Attach",
+   "label": "الوجه الأمامي"
+  },
+  {
+   "fieldname": "column_break_paper",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "back_image",
+   "fieldtype": "Attach",
+   "label": "الوجه الخلفي"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state && doc.workflow_state!=\"مسودة\"",
+   "fieldname": "section_followup",
+   "fieldtype": "Section Break",
+   "label": "المتابعة والتكليف"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "الحالة",
+   "no_copy": 1,
+   "options": "Workflow State",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "monitor",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_standard_filter": 1,
+   "label": "المونيتور المسؤول",
+   "no_copy": 1,
+   "options": "User",
+   "search_index": 1
+  },
+  {
+   "fieldname": "coordinator_instructions",
+   "fieldtype": "Small Text",
+   "label": "تعليمات المنسق للمونيتور",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_followup",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "assigned_by",
+   "fieldtype": "Link",
+   "label": "كلّفه",
+   "no_copy": 1,
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assigned_on",
+   "fieldtype": "Datetime",
+   "label": "تاريخ التكليف",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.return_reason",
+   "fieldname": "return_reason",
+   "fieldtype": "Small Text",
+   "label": "سبب الإعادة للمراقب",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:[\"قيد المراجعة من قبل المونيتور\",\"الحلقة جاهزة للعرض\",\"ملغى\"].includes(doc.workflow_state)",
+   "fieldname": "section_completion",
+   "fieldtype": "Section Break",
+   "label": "إنجاز المونيتور"
+  },
+  {
+   "fieldname": "completion_note",
+   "fieldtype": "Small Text",
+   "label": "ملاحظة الإنجاز",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_completion",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "completed_by",
+   "fieldtype": "Link",
+   "label": "أنجزه",
+   "no_copy": 1,
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_on",
+   "fieldtype": "Datetime",
+   "label": "تاريخ الإنجاز",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_meta",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "العنوان",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Detailed Review Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-18 11:21:36.523780",
+ "modified_by": "Administrator",
+ "module": "TV Archive",
+ "name": "Detailed Review Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Coordinator",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Observer",
+   "write": 1
+  },
+  {
+   "print": 1,
+   "read": 1,
+   "role": "Archive Monitor",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Director"
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "work_title,episode_label,observer,monitor",
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}

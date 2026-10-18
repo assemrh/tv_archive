@@ -1,0 +1,218 @@
+{
+ "app": "tv_archive",
+ "charts": [],
+ "content": "[{\"id\": \"hdr1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>أرشيف المسلسلات والبرامج</b></span>\", \"col\": 12}}, {\"id\": \"sc0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"بانتظار تحديد المونيتور\", \"col\": 3}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"قيد المراجعة\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"مسوداتي\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"الأعمال المفتوحة\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"التقارير التفصيلية\", \"col\": 3}}, {\"id\": \"sc5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"التقارير العامة\", \"col\": 3}}, {\"id\": \"sc6\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"الأعمال\", \"col\": 3}}, {\"id\": \"sc7\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"تقدم الأعمال\", \"col\": 3}}, {\"id\": \"sp1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"cd0\", \"type\": \"card\", \"data\": {\"card_name\": \"التقارير\", \"col\": 4}}, {\"id\": \"cd1\", \"type\": \"card\", \"data\": {\"card_name\": \"الإحصاءات\", \"col\": 4}}, {\"id\": \"cd2\", \"type\": \"card\", \"data\": {\"card_name\": \"الإعداد\", \"col\": 4}}]",
+ "creation": "2026-10-18 10:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "file",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "TV Archive",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "التقارير",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "تقرير الرقابة التفصيلي",
+   "link_count": 0,
+   "link_to": "Detailed Review Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "تقرير الرقابة العام",
+   "link_count": 0,
+   "link_to": "General Review Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "الأعمال (المسلسلات والبرامج)",
+   "link_count": 0,
+   "link_to": "Archive Work",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "الإحصاءات",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "تقدم الأعمال",
+   "link_count": 0,
+   "link_to": "Archive Work Progress",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "إحصاءات المراقبين",
+   "link_count": 0,
+   "link_to": "Observer Statistics",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "الإعداد",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "تصنيفات الأعمال",
+   "link_count": 0,
+   "link_to": "Archive Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "أنواع الحفظ",
+   "link_count": 0,
+   "link_to": "Archive Storage Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "المستخدمون",
+   "link_count": 0,
+   "link_to": "User",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-10-18 11:22:50.109960",
+ "modified_by": "Administrator",
+ "module": "TV Archive",
+ "name": "TV Archive",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Archive Observer"
+  },
+  {
+   "role": "Archive Coordinator"
+  },
+  {
+   "role": "Archive Monitor"
+  },
+  {
+   "role": "Archive Director"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "format": "{} بانتظار التكليف",
+   "label": "بانتظار تحديد المونيتور",
+   "link_to": "Detailed Review Report",
+   "stats_filter": "[[\"Detailed Review Report\", \"workflow_state\", \"=\", \"بانتظار تحديد المونيتور\", false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "format": "{} قيد المراجعة",
+   "label": "قيد المراجعة",
+   "link_to": "Detailed Review Report",
+   "stats_filter": "[[\"Detailed Review Report\", \"workflow_state\", \"=\", \"قيد المراجعة من قبل المونيتور\", false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "format": "{} مسودة",
+   "label": "مسوداتي",
+   "link_to": "Detailed Review Report",
+   "stats_filter": "[[\"Detailed Review Report\", \"workflow_state\", \"=\", \"مسودة\", false], [\"Detailed Review Report\", \"owner\", \"=\", \"__user\", false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "format": "{} عمل مفتوح",
+   "label": "الأعمال المفتوحة",
+   "link_to": "Archive Work",
+   "stats_filter": "[[\"Archive Work\", \"status\", \"=\", \"مفتوح\", false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "التقارير التفصيلية",
+   "link_to": "Detailed Review Report",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "format": "{} بانتظار الاعتماد",
+   "label": "التقارير العامة",
+   "link_to": "General Review Report",
+   "stats_filter": "[[\"General Review Report\", \"workflow_state\", \"=\", \"بانتظار الاعتماد\", false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "الأعمال",
+   "link_to": "Archive Work",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "تقدم الأعمال",
+   "link_to": "Archive Work Progress",
+   "type": "Report"
+  }
+ ],
+ "title": "TV Archive"
+}

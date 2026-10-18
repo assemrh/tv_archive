@@ -86,7 +86,8 @@ app_license = "mit"
 # ------------
 
 # before_install = "tv_archive.install.before_install"
-# after_install = "tv_archive.install.after_install"
+after_install = "tv_archive.setup.install.after_install"
+after_migrate = "tv_archive.setup.install.after_migrate"
 
 # Uninstallation
 # ------------
@@ -126,13 +127,15 @@ app_license = "mit"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+	"Detailed Review Report": "tv_archive.permissions.detailed_report_query",
+	"General Review Report": "tv_archive.permissions.general_report_query",
+}
+
+has_permission = {
+	"Detailed Review Report": "tv_archive.permissions.detailed_report_has_permission",
+	"General Review Report": "tv_archive.permissions.general_report_has_permission",
+}
 
 # Document Events
 # ---------------
@@ -255,4 +258,3 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-

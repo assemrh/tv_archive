@@ -1,0 +1,262 @@
+{
+ "actions": [],
+ "autoname": "format:WRK-{YYYY}-{#####}",
+ "creation": "2026-10-18 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_work",
+  "work_title",
+  "work_type",
+  "season_no",
+  "column_break_work",
+  "category",
+  "episodes_count",
+  "status",
+  "section_crew",
+  "story_script",
+  "preparer",
+  "column_break_crew",
+  "director",
+  "production_company",
+  "section_storage",
+  "storage_type",
+  "column_break_storage",
+  "storage_number",
+  "section_characters",
+  "default_characters",
+  "section_progress",
+  "reports_count",
+  "ready_count",
+  "column_break_progress",
+  "progress",
+  "general_report"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_work",
+   "fieldtype": "Section Break",
+   "label": "بيانات العمل"
+  },
+  {
+   "bold": 1,
+   "fieldname": "work_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "اسم العمل",
+   "reqd": 1
+  },
+  {
+   "default": "مسلسل",
+   "fieldname": "work_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "نوع العمل",
+   "options": "مسلسل\nبرنامج\nمادة",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "season_no",
+   "fieldtype": "Int",
+   "label": "الجزء",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_work",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "تصنيف العمل",
+   "options": "Archive Category",
+   "reqd": 1
+  },
+  {
+   "fieldname": "episodes_count",
+   "fieldtype": "Int",
+   "label": "عدد الحلقات",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "مفتوح",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "حالة الملف",
+   "no_copy": 1,
+   "options": "مفتوح\nمغلق",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_crew",
+   "fieldtype": "Section Break",
+   "label": "فريق العمل"
+  },
+  {
+   "fieldname": "story_script",
+   "fieldtype": "Data",
+   "label": "قصة وسيناريو وحوار"
+  },
+  {
+   "fieldname": "preparer",
+   "fieldtype": "Data",
+   "label": "إعداد"
+  },
+  {
+   "fieldname": "column_break_crew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "director",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "إخراج / إشراف فني"
+  },
+  {
+   "fieldname": "production_company",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "الشركة المنتجة"
+  },
+  {
+   "fieldname": "section_storage",
+   "fieldtype": "Section Break",
+   "label": "الحفظ"
+  },
+  {
+   "fieldname": "storage_type",
+   "fieldtype": "Link",
+   "label": "نوع الحفظ",
+   "options": "Archive Storage Type"
+  },
+  {
+   "fieldname": "column_break_storage",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "storage_number",
+   "fieldtype": "Data",
+   "label": "الرقم"
+  },
+  {
+   "fieldname": "section_characters",
+   "fieldtype": "Section Break",
+   "label": "الشخصيات"
+  },
+  {
+   "description": "تُنسخ تلقائياً إلى كل تقرير حلقة جديد ويمكن تعديلها هناك.",
+   "fieldname": "default_characters",
+   "fieldtype": "Small Text",
+   "label": "الشخصيات الرئيسية"
+  },
+  {
+   "collapsible": 0,
+   "fieldname": "section_progress",
+   "fieldtype": "Section Break",
+   "label": "تقدم المراقبة"
+  },
+  {
+   "fieldname": "reports_count",
+   "fieldtype": "Int",
+   "label": "الحلقات المسجلة",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ready_count",
+   "fieldtype": "Int",
+   "label": "الحلقات الجاهزة للعرض",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_progress",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "نسبة الإنجاز",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "general_report",
+   "fieldtype": "Link",
+   "label": "التقرير العام",
+   "no_copy": 1,
+   "options": "General Review Report",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-18 11:21:36.523780",
+ "modified_by": "Administrator",
+ "module": "TV Archive",
+ "name": "Archive Work",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Coordinator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Observer",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Archive Monitor"
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Director"
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "work_title,production_company,director",
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "work_title",
+ "track_changes": 1
+}
