@@ -1,0 +1,36 @@
+{
+ "content": null,
+ "creation": "2026-10-18 15:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "home",
+ "idx": 0,
+ "modified": "2026-10-18 12:08:57.996641",
+ "modified_by": "Administrator",
+ "module": "TV Archive",
+ "name": "archive-welcome",
+ "owner": "Administrator",
+ "page_name": "archive-welcome",
+ "roles": [
+  {
+   "role": "Archive Observer"
+  },
+  {
+   "role": "Archive Coordinator"
+  },
+  {
+   "role": "Archive Monitor"
+  },
+  {
+   "role": "Archive Director"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "الصفحة الرئيسية"
+}

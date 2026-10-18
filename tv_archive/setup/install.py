@@ -35,14 +35,27 @@ STATE_STYLES = {
 DEFAULT_CATEGORIES = ("درامي", "تاريخي", "كوميدي", "اجتماعي", "بيئة شامية", "وثائقي", "منوعات", "أطفال")
 DEFAULT_STORAGE_TYPES = ("Hard", "Server")
 WORKSPACE = "TV Archive"
+WELCOME_PAGE = "archive-welcome"
+
+# Frappe's setup wizard, answered for the channel. Nothing here creates a user.
+SITE_DEFAULTS = {
+	"language": "العربية",
+	"lang": "العربية",
+	"country": "Syria",
+	"timezone": "Asia/Damascus",
+	"currency": "SYP",
+	"enable_telemetry": 0,
+}
 
 
 def after_install():
 	setup()
+	complete_site_setup()
 
 
 def after_migrate():
 	setup()
+	complete_site_setup()
 
 
 def setup():
@@ -210,6 +223,53 @@ def ensure_desk_entry():
 	# within v16 (auto_generate_icons_and_sidebar → create_desktop_icons_for_app).
 	for method in frappe.get_hooks("after_app_install", app_name="frappe"):
 		frappe.get_attr(method)("tv_archive")
+
+
+def complete_site_setup():
+	"""Skip Frappe's generic setup wizard and land users on the welcome page.
+
+	On a site that runs only this app, the wizard asks nothing the channel needs to
+	decide (language, country, time zone, currency), so it is completed here with the
+	channel's values. Sites with other apps (e.g. ERPNext) keep their own wizard.
+	"""
+	if not frappe.is_setup_complete():
+		if set(frappe.get_installed_apps()) - {"frappe", "tv_archive"}:
+			return
+		from frappe.desk.page.setup_wizard.setup_wizard import setup_complete
+
+		setup_complete(SITE_DEFAULTS)
+
+	set_home_page()
+
+
+def set_home_page():
+	"""Open the welcome page after login.
+
+	Also repairs sites where setup is marked complete but the home page still points
+	to the setup wizard: the desk then redirects between the two forever.
+	"""
+	if not frappe.is_setup_complete():
+		return
+	if frappe.db.get_default("desktop:home_page") in (None, "", "setup-wizard", "workspace", "desktop"):
+		frappe.db.set_default("desktop:home_page", WELCOME_PAGE)
+	if not frappe.db.get_single_value("System Settings", "setup_complete"):
+		frappe.db.set_single_value("System Settings", "setup_complete", 1)
+	fill_missing_regional_settings()
+	frappe.clear_cache()
+
+
+def fill_missing_regional_settings():
+	"""Sites marked complete without running the wizard have no language or time zone."""
+	settings = frappe.db.get_singles_dict("System Settings")
+	if not settings.get("language"):
+		from frappe.translate import set_default_language
+
+		set_default_language("ar")
+		frappe.db.set_single_value("System Settings", "language", "ar")
+	if not settings.get("time_zone"):
+		frappe.db.set_single_value("System Settings", "time_zone", SITE_DEFAULTS["timezone"])
+	if not settings.get("country"):
+		frappe.db.set_single_value("System Settings", "country", SITE_DEFAULTS["country"])
 
 
 def seed_list(doctype, fieldname, values):
