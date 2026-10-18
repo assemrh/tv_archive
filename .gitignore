@@ -53,3 +53,8 @@ jspm_packages/
 
 # Aider AI Chat
 .aider*
+
+# Local Docker env files (keep the example only)
+docker/.env
+docker/.env.*
+!docker/.env.example

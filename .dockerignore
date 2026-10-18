@@ -1,0 +1,6 @@
+.git
+**/__pycache__
+**/*.pyc
+node_modules
+docker/.env
+*.egg-info

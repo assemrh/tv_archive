@@ -1,33 +1,89 @@
-### TV Archive
+# TV Archive · نظام أرشفة المسلسلات والبرامج
 
-نظام أرشفة المسلسلات والبرامج - الفضائية السورية
+تطبيق Frappe مستقل (Frappe v16، بدون ERPNext) لدائرة الرقابة في الفضائية السورية. ينفّذ وثيقة المتطلبات FDS-2026-002 (V1.1): تقرير الرقابة التفصيلي لكل حلقة، وتقرير الرقابة العام لكل عمل، ومسار التكليف والمراجعة، والإشعارات، وصلاحيات الأدوار.
 
-### Installation
+## المحتوى
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+| المكوّن | الوصف | المتطلب |
+|---|---|---|
+| `Archive Work` | العمل (مسلسل / برنامج / مادة) مع عدّاد تقدّم الحلقات | ARC-REQ-01 |
+| `Detailed Review Report` | تقرير الرقابة التفصيلي، تقرير واحد لكل حلقة | ARC-REQ-02 |
+| `General Review Report` | تقرير الرقابة العام، يُعبّأ تدريجياً ويُغلق ملف العمل عند اعتماده | ARC-REQ-07 |
+| مسارا عمل (Workflow) | مسودة ← بانتظار تحديد المونيتور ← قيد المراجعة ← جاهزة للعرض | مصفوفة سير العمل |
+| نوافذ المنسق والمونيتور | تكليف مونيتور، إعادة للمراقب، تمت المراجعة | ARC-REQ-03 |
+| الإشعارات | جرس الإشعارات، وبريد إلكتروني إن كان مفعّلاً للمستخدم | ARC-REQ-04/05/06 |
+| صلاحيات على مستوى السجل | المراقب يرى تقاريره، والمونيتور يرى المكلّف به فقط | ARC-ROL-01..04 |
+| تقارير | تقدم الأعمال، إحصاءات المراقبين | - |
+| نماذج طباعة | مطابقة لنموذجي الرقابة الورقيين، مع خانات التواقيع | - |
+
+### الأدوار
+
+| الدور في النظام | الاسم بالعربية |
+|---|---|
+| `Archive Observer` | المراقب |
+| `Archive Coordinator` | المنسق / رئيس شعبة المراقبة |
+| `Archive Monitor` | المونيتور |
+| `Archive Director` | مدير المديرية (اطلاع فقط) |
+| `System Manager` | مدير النظام |
+
+تُنشأ الأدوار ومسارا العمل وقوائم التصنيفات وأنواع الحفظ تلقائياً عند التثبيت، ويُعاد تطبيق مسارَي العمل مع كل `bench migrate` (انظر `tv_archive/setup/install.py`).
+
+## التطوير (frappe_docker devcontainer)
 
 ```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch main
-bench install-app tv_archive
+cd ~/frappe_docker/development/frappe-bench
+bench get-app /path/to/tv_archive          # أو انسخ المجلد إلى apps/ ثم: bench setup requirements
+bench new-site archive.localhost --db-root-password 123 \
+  --mariadb-user-host-login-scope='%' --admin-password admin --install-app tv_archive
+bench --site archive.localhost set-config developer_mode 1
+bench start
 ```
 
-### Contributing
-
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+بيانات تدريبية (مستخدم لكل دور، وعمل فيه حلقات في كل المراحل):
 
 ```bash
-cd apps/tv_archive
-pre-commit install
+bench --site archive.localhost execute tv_archive.setup.demo.make_demo
 ```
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+كلمة مرور المستخدمين التدريبيين `Archive@2026`، والأسماء: `observer@archive.local`، `coordinator@archive.local`، `monitor@archive.local`، `director@archive.local`. لا تُشغَّل هذه الدالة على الإنتاج، وهي ترفض العمل إن لم يكن `developer_mode` أو `allow_tests` مفعّلاً.
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
+الاختبارات:
 
-### License
+```bash
+bench --site archive.localhost set-config allow_tests true
+bench --site archive.localhost run-tests --app tv_archive
+```
 
-mit
+## الإنتاج (Docker)
+
+الصورة تُبنى من هذا المستودع مباشرة، ولا تحتاج مستودع Git بعيداً:
+
+```bash
+docker build -f docker/Containerfile -t tv-archive:1.0.0 .
+cp docker/.env.example docker/.env          # غيّر كلمات المرور واسم الموقع
+docker compose -f docker/compose.yaml --env-file docker/.env up -d
+docker compose -f docker/compose.yaml --env-file docker/.env logs -f create-site
+```
+
+يفتح النظام على `http://SERVER:8080`. الخدمة `create-site` تنشئ الموقع وتثبّت التطبيق في أول تشغيل، وتشغّل `migrate` في كل تشغيل لاحق.
+
+### التحديث إلى إصدار جديد
+
+```bash
+git pull
+docker build -f docker/Containerfile -t tv-archive:1.1.0 .
+# عدّل ARCHIVE_TAG=1.1.0 في docker/.env
+docker compose -f docker/compose.yaml --env-file docker/.env up -d
+```
+
+### النسخ الاحتياطي
+
+```bash
+docker compose -f docker/compose.yaml --env-file docker/.env exec backend \
+  bench --site archive.ortas.local backup --with-files
+# الملفات في volume باسم tv-archive_sites تحت sites/<site>/private/backups
+```
+
+## الترخيص
+
+MIT
